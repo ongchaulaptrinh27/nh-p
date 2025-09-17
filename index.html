@@ -4,71 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Anh Yêu Em</title>
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|Mali:400" rel="stylesheet"/>
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
     <link rel="stylesheet" href="/static/css/app.css" />
+
+    <!-- CSS thêm trực tiếp (nếu muốn giữ để style link) -->
     <style>
-      /* Original style for single image */
-      .image-container {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-      }
-      .love-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        transition: transform 0.3s ease;
-      }
-      .love-image:hover {
-        transform: scale(1.02);
-      }
-      /* Style for slideshow */
-      .slideshow-container {
-        display: flex;
-        justify-content: flex-start;
-        margin: 20px;
-        position: relative;
-        max-width: 200px; /* Smaller size for slideshow images */
-      }
-      .slideshow-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        transition: transform 0.3s ease, opacity 0.5s ease;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: rotate(-5deg); /* Slight tilt for dynamic effect */
-      }
-      .slideshow-image.active {
-        opacity: 1;
-        position: relative;
-      }
-      .slideshow-image:hover {
-        transform: rotate(-5deg) scale(1.02);
-      }
-      /* Style for flowing text */
-      .message-container {
-        text-align: center;
-        margin: 20px 0;
-        position: relative;
-        height: 2rem; /* Fixed height to prevent layout shift */
-      }
-      .message {
-        color: white;
-        font-family: 'Mali', cursive;
-        font-size: 1.5rem;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        position: absolute;
-        width: 100%;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-      }
-      .message.active {
-        opacity: 1;
+      .image-link {
+        color: #1e90ff;
+        text-decoration: underline;
+        margin-left: 6px;
       }
     </style>
   </head>
@@ -128,16 +72,14 @@
             "fontName": "Mali",
             "color": "#ff0019",
             "messages": [
-              "Anh Yêu Em Nhiều Lắm",
-              "Cảm ơn em vì đã đến",
-              "Anh Yêu Em"
+              "messages": [
+               "Anh Yêu Em Nhiều Lắm ❤️ [ảnh:https://sf-static.upanhlaylink.com/img/image_20250917568823e276880b34ae6bcfe09a861d28.jpg]",
+              "Cảm ơn em vì đã đến 🌸 [ảnh: https://sf-static.upanhlaylink.com/img/image_20250917568823e276880b34ae6bcfe09a861d28.jpg]",
+              "Anh Yêu Em 💖 [ảnh: https://sf-static.upanhlaylink.com/img/image_20250917568823e276880b34ae6bcfe09a861d28.jpg]"
+],
+
             ],
-            "music": "/static/audio/music.mp3",
-            "images": [
-              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-              "https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-              "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
-            ]
+            "music": "/static/audio/music.mp3"
           },
           "clientId": "/"
         },
@@ -147,75 +89,8 @@
         "encryptHistory": false
       }'
     >
-      <!-- Original image container -->
-      <div class="image-container">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-             alt="Tình yêu" class="love-image">
-      </div>
-      <!-- New slideshow container -->
-      <div class="slideshow-container" id="slideshow">
-        <!-- Images will be populated by JavaScript -->
-      </div>
-      <!-- Message container for flowing text -->
-      <div class="message-container" id="messages">
-        <!-- Messages will be populated by JavaScript -->
-      </div>
     </div>
     <script type="module" src="/static/js/app.js"></script>
     <script type="module" src="/static/js/home.js"></script>
-    <script>
-      // Script to handle slideshow and flowing text
-      document.addEventListener('DOMContentLoaded', function() {
-        try {
-          const appElement = document.getElementById('app');
-          const pageData = JSON.parse(appElement.getAttribute('data-page'));
-          const slideshowContainer = document.getElementById('slideshow');
-          const messageContainer = document.getElementById('messages');
-
-          // Populate images for slideshow
-          if (pageData.props.client.images && pageData.props.client.images.length > 0) {
-            pageData.props.client.images.forEach((imageSrc, index) => {
-              const img = document.createElement('img');
-              img.src = imageSrc;
-              img.alt = 'Tình yêu';
-              img.className = 'slideshow-image' + (index === 0 ? ' active' : '');
-              slideshowContainer.appendChild(img);
-            });
-
-            // Slideshow logic
-            let currentSlide = 0;
-            const slides = slideshowContainer.querySelectorAll('.slideshow-image');
-            function showNextSlide() {
-              slides[currentSlide].classList.remove('active');
-              currentSlide = (currentSlide + 1) % slides.length;
-              slides[currentSlide].classList.add('active');
-            }
-            setInterval(showNextSlide, 5000); // Change slide every 5 seconds
-          }
-
-          // Populate messages for flowing text
-          if (pageData.props.client.messages && pageData.props.client.messages.length > 0) {
-            pageData.props.client.messages.forEach((message, index) => {
-              const p = document.createElement('p');
-              p.textContent = message;
-              p.className = 'message' + (index === 0 ? ' active' : '');
-              messageContainer.appendChild(p);
-            });
-
-            // Flowing text logic
-            let currentMessage = 0;
-            const messages = messageContainer.querySelectorAll('.message');
-            function showNextMessage() {
-              messages[currentMessage].classList.remove('active');
-              currentMessage = (currentMessage + 1) % messages.length;
-              messages[currentMessage].classList.add('active');
-            }
-            setInterval(showNextMessage, 3000); // Change message every 3 seconds
-          }
-        } catch (e) {
-          console.error('Error parsing page data:', e);
-        }
-      });
-    </script>
   </body>
 </html>
