@@ -1,140 +1,312 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
-  <head>
+<html lang="vi" class="dark">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Anh Yêu Em</title>
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
-    <link rel="stylesheet" href="/static/css/app.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-      /* Thêm style cho phần hình ảnh */
-      .image-container {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-      }
-      .love-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        transition: transform 0.3s ease;
-      }
-      .love-image:hover {
-        transform: scale(1.02);
-      }
-    </style>
-  </head>
-  <body class="font-sans antialiased">
-    <div
-      id="app"
-      data-page='{
-        "component": "views/home",
-        "props": {
-          "errors": {},
-          "name": "Anh Yêu Em",
-          "quote": {
-            "message": "",
-            "author": ""
-          },
-          "auth": {
-            "user": null
-          },
-          "ziggy": {
-            "port": null,
-            "defaults": [],
-            "routes": {
-              "home": {
-                "uri": "/",
-                "methods": ["GET", "HEAD"]
-              },
-              "show-create-form": {
-                "uri": "create-message/{id?}",
-                "methods": ["GET", "HEAD"],
-                "parameters": ["id"]
-              },
-              "create-form": {
-                "uri": "create-message",
-                "methods": ["POST"]
-              },
-              "login": {
-                "uri": "login",
-                "methods": ["GET", "HEAD"]
-              },
-              "logout": {
-                "uri": "logout",
-                "methods": ["POST"]
-              },
-              "storage.local": {
-                "uri": "storage/{path}",
-                "methods": ["GET", "HEAD"],
-                "wheres": {
-                  "path": ".*"
-                },
-                "parameters": ["path"]
-              }
-            },
-            "location": ""
-          },
-          "message": "",
-          "client": {
-            "fontName": "Mali",
-            "color": "#ff0019",
-            "messages": [
-              "Anh Yêu Em Nhiều Lắm",
-              "Cảm ơn em vì đã đến",
-              "Anh Yêu Em"
-            ],
-            "music": "/static/audio/music.mp3",
-            "images": [
-              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-              "https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-              "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
-            ]
-          },
-          "clientId": "/"
-        },
-        "url": "/",
-        "version": "",
-        "clearHistory": false,
-        "encryptHistory": false
-      }'
-    >
-      <!-- Thêm phần hiển thị hình ảnh tạm thời -->
-      <div class="image-container">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-             alt="Tình yêu" class="love-image">
-      </div>
-    </div>
-    <script type="module" src="/static/js/app.js"></script>
-    <script type="module" src="/static/js/home.js"></script>
-    <script>
-      // Script tạm để hiển thị ảnh từ dữ liệu trong data-page
-      document.addEventListener('DOMContentLoaded', function() {
-        try {
-          const appElement = document.getElementById('app');
-          const pageData = JSON.parse(appElement.getAttribute('data-page'));
-          
-          if (pageData.props.client.images && pageData.props.client.images.length > 0) {
-            // Tạo container cho hình ảnh
-            const imageContainer = document.createElement('div');
-            imageContainer.className = 'image-container';
-            
-            // Tạo thẻ img và thêm vào container
-            const img = document.createElement('img');
-            img.src = pageData.props.client.images[0];
-            img.alt = "Tình yêu";
-            img.className = 'love-image';
-            
-            imageContainer.appendChild(img);
-            
-            // Thêm vào đầu phần tử app
-            appElement.insertBefore(imageContainer, appElement.firstChild);
-          }
-        } catch (e) {
-          console.error('Error parsing page data:', e);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      });
+        
+        body {
+            font-family: 'Mali', cursive;
+            background: linear-gradient(135deg, #1a0229 0%, #2c0345 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .header {
+            margin: 30px 0;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            color: #ff4081;
+            text-shadow: 0 0 15px rgba(255, 64, 129, 0.7);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .love-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .message-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .message-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+        }
+        
+        .message-text {
+            font-size: 2rem;
+            color: #e0e0e0;
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .message-image {
+            flex: 1;
+            max-width: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .message-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .message-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .alternate {
+            flex-direction: row-reverse;
+        }
+        
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff4081"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            opacity: 0;
+            animation: fall 5s linear infinite;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ff4081;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.6);
+        }
+        
+        .music-text {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .message-item {
+                flex-direction: column;
+            }
+            
+            .alternate {
+                flex-direction: column;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .message-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Anh Yêu Em</h1>
+            <p class="subtitle">Những lời yêu thương chân thành nhất</p>
+        </div>
+        
+        <div class="love-messages">
+            <div class="message-item">
+                <div class="message-text">Anh Yêu Em Nhiều Lắm</div>
+                <div class="message-image">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Tình yêu">
+                </div>
+            </div>
+            
+            <div class="message-item alternate">
+                <div class="message-text">Cảm ơn em vì đã đến bên anh</div>
+                <div class="message-image">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Cảm ơn">
+                </div>
+            </div>
+            
+            <div class="message-item">
+                <div class="message-text">Mãi mãi bên nhau em nhé!</div>
+                <div class="message-image">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Mãi mãi">
+                </div>
+            </div>
+        </div>
+        
+        <div class="music-player">
+            <button class="play-btn">▶</button>
+            <div class="music-text">Nhạc tình yêu</div>
+        </div>
+    </div>
+    
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="footer">
+        <p>Gửi đến người em yêu quý nhất ❤️</p>
+    </div>
+
+    <script>
+        // Tạo trái tim bay
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartCount = 30;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                
+                // Random vị trí và kích thước
+                const size = Math.random() * 15 + 5;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 4 + 3;
+                const animationDelay = Math.random() * 5;
+                
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                heart.style.left = `${left}vw`;
+                heart.style.animationDuration = `${animationDuration}s`;
+                heart.style.animationDelay = `${animationDelay}s`;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Xử lý nhạc
+        function setupMusic() {
+            const playBtn = document.querySelector('.play-btn');
+            let audio = null;
+            let isPlaying = false;
+            
+            playBtn.addEventListener('click', function() {
+                if (!isPlaying) {
+                    // Tạo audio element
+                    audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+                    audio.loop = true;
+                    audio.play();
+                    playBtn.innerHTML = '❚❚';
+                    isPlaying = true;
+                } else {
+                    audio.pause();
+                    playBtn.innerHTML = '▶';
+                    isPlaying = false;
+                }
+            });
+        }
+        
+        // Khởi tạo hiệu ứng
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            setupMusic();
+            
+            // Hiệu ứng xuất hiện từ từ cho các message
+            const messageItems = document.querySelectorAll('.message-item');
+            messageItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 300 + index * 300);
+            });
+        });
     </script>
-  </body>
+</body>
 </html>
