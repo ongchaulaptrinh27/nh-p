@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Anh Yêu Em</title>
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
+    <link rel="stylesheet" href="/static/css/app.css" />
+    <style>
+      /* Thêm style cho phần hình ảnh */
+      .image-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+      .love-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+      }
+      .love-image:hover {
+        transform: scale(1.02);
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased">
+    <div
+      id="app"
+      data-page='{
+        "component": "views/home",
+        "props": {
+          "errors": {},
+          "name": "Anh Yêu Em",
+          "quote": {
+            "message": "",
+            "author": ""
+          },
+          "auth": {
+            "user": null
+          },
+          "ziggy": {
+            "port": null,
+            "defaults": [],
+            "routes": {
+              "home": {
+                "uri": "/",
+                "methods": ["GET", "HEAD"]
+              },
+              "show-create-form": {
+                "uri": "create-message/{id?}",
+                "methods": ["GET", "HEAD"],
+                "parameters": ["id"]
+              },
+              "create-form": {
+                "uri": "create-message",
+                "methods": ["POST"]
+              },
+              "login": {
+                "uri": "login",
+                "methods": ["GET", "HEAD"]
+              },
+              "logout": {
+                "uri": "logout",
+                "methods": ["POST"]
+              },
+              "storage.local": {
+                "uri": "storage/{path}",
+                "methods": ["GET", "HEAD"],
+                "wheres": {
+                  "path": ".*"
+                },
+                "parameters": ["path"]
+              }
+            },
+            "location": ""
+          },
+          "message": "",
+          "client": {
+            "fontName": "Mali",
+            "color": "#ff0019",
+            "messages": [
+              "Anh Yêu Em Nhiều Lắm",
+              "Cảm ơn em vì đã đến",
+              "Anh Yêu Em"
+            ],
+            "music": "/static/audio/music.mp3",
+            "images": [
+              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+            ]
+          },
+          "clientId": "/"
+        },
+        "url": "/",
+        "version": "",
+        "clearHistory": false,
+        "encryptHistory": false
+      }'
+    >
+      <!-- Thêm phần hiển thị hình ảnh tạm thời -->
+      <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+             alt="Tình yêu" class="love-image">
+      </div>
+    </div>
+    <script type="module" src="/static/js/app.js"></script>
+    <script type="module" src="/static/js/home.js"></script>
+    <script>
+      // Script tạm để hiển thị ảnh từ dữ liệu trong data-page
+      document.addEventListener('DOMContentLoaded', function() {
+        try {
+          const appElement = document.getElementById('app');
+          const pageData = JSON.parse(appElement.getAttribute('data-page'));
+          
+          if (pageData.props.client.images && pageData.props.client.images.length > 0) {
+            // Tạo container cho hình ảnh
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'image-container';
+            
+            // Tạo thẻ img và thêm vào container
+            const img = document.createElement('img');
+            img.src = pageData.props.client.images[0];
+            img.alt = "Tình yêu";
+            img.className = 'love-image';
+            
+            imageContainer.appendChild(img);
+            
+            // Thêm vào đầu phần tử app
+            appElement.insertBefore(imageContainer, appElement.firstChild);
+          }
+        } catch (e) {
+          console.error('Error parsing page data:', e);
+        }
+      });
+    </script>
+  </body>
+</html>
