@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Anh Yêu Em</title>
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|Mali:400" rel="stylesheet"/>
     <link rel="stylesheet" href="/static/css/app.css" />
     <style>
       /* Original style for single image */
@@ -26,12 +26,10 @@
       /* Style for slideshow */
       .slideshow-container {
         display: flex;
-        justify-content: center;
-        margin: 20px 0;
+        justify-content: flex-start;
+        margin: 20px;
         position: relative;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: 200px; /* Smaller size for slideshow images */
       }
       .slideshow-image {
         max-width: 100%;
@@ -43,13 +41,34 @@
         position: absolute;
         top: 0;
         left: 0;
+        transform: rotate(-5deg); /* Slight tilt for dynamic effect */
       }
       .slideshow-image.active {
         opacity: 1;
         position: relative;
       }
       .slideshow-image:hover {
-        transform: scale(1.02);
+        transform: rotate(-5deg) scale(1.02);
+      }
+      /* Style for flowing text */
+      .message-container {
+        text-align: center;
+        margin: 20px 0;
+        position: relative;
+        height: 2rem; /* Fixed height to prevent layout shift */
+      }
+      .message {
+        color: white;
+        font-family: 'Mali', cursive;
+        font-size: 1.5rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .message.active {
+        opacity: 1;
       }
     </style>
   </head>
@@ -137,16 +156,21 @@
       <div class="slideshow-container" id="slideshow">
         <!-- Images will be populated by JavaScript -->
       </div>
+      <!-- Message container for flowing text -->
+      <div class="message-container" id="messages">
+        <!-- Messages will be populated by JavaScript -->
+      </div>
     </div>
     <script type="module" src="/static/js/app.js"></script>
     <script type="module" src="/static/js/home.js"></script>
     <script>
-      // Script to handle slideshow
+      // Script to handle slideshow and flowing text
       document.addEventListener('DOMContentLoaded', function() {
         try {
           const appElement = document.getElementById('app');
           const pageData = JSON.parse(appElement.getAttribute('data-page'));
           const slideshowContainer = document.getElementById('slideshow');
+          const messageContainer = document.getElementById('messages');
 
           // Populate images for slideshow
           if (pageData.props.client.images && pageData.props.client.images.length > 0) {
@@ -167,6 +191,26 @@
               slides[currentSlide].classList.add('active');
             }
             setInterval(showNextSlide, 5000); // Change slide every 5 seconds
+          }
+
+          // Populate messages for flowing text
+          if (pageData.props.client.messages && pageData.props.client.messages.length > 0) {
+            pageData.props.client.messages.forEach((message, index) => {
+              const p = document.createElement('p');
+              p.textContent = message;
+              p.className = 'message' + (index === 0 ? ' active' : '');
+              messageContainer.appendChild(p);
+            });
+
+            // Flowing text logic
+            let currentMessage = 0;
+            const messages = messageContainer.querySelectorAll('.message');
+            function showNextMessage() {
+              messages[currentMessage].classList.remove('active');
+              currentMessage = (currentMessage + 1) % messages.length;
+              messages[currentMessage].classList.add('active');
+            }
+            setInterval(showNextMessage, 3000); // Change message every 3 seconds
           }
         } catch (e) {
           console.error('Error parsing page data:', e);
