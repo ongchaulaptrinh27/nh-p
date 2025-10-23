@@ -1,96 +1,413 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Anh Yêu Em</title>
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
-    <link rel="stylesheet" href="/static/css/app.css" />
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sang dev - Shop Mã Nguồn Chất</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="https://sangdevshop.vercel.app/admin.jpg" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Sidebar Toggle Button -->
+  <button class="sidebar-toggle" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+  </button>
 
-    <!-- CSS thêm trực tiếp (nếu muốn giữ để style link) -->
-    <style>
-      .image-link {
-        color: #1e90ff;
-        text-decoration: underline;
-        margin-left: 6px;
-      }
-    </style>
-  </head>
-  <body class="font-sans antialiased">
-    <div
-      id="app"
-      data-page='{
-        "component": "views/home",
-        "props": {
-          "errors": {},
-          "name": "Anh Yêu Em",
-          "quote": {
-            "message": "",
-            "author": ""
-          },
-          "auth": {
-            "user": null
-          },
-          "ziggy": {
-            "port": null,
-            "defaults": [],
-            "routes": {
-              "home": {
-                "uri": "/",
-                "methods": ["GET", "HEAD"]
-              },
-              "show-create-form": {
-                "uri": "create-message/{id?}",
-                "methods": ["GET", "HEAD"],
-                "parameters": ["id"]
-              },
-              "create-form": {
-                "uri": "create-message",
-                "methods": ["POST"]
-              },
-              "login": {
-                "uri": "login",
-                "methods": ["GET", "HEAD"]
-              },
-              "logout": {
-                "uri": "logout",
-                "methods": ["POST"]
-              },
-              "storage.local": {
-                "uri": "storage/{path}",
-                "methods": ["GET", "HEAD"],
-                "wheres": {
-                  "path": ".*"
-                },
-                "parameters": ["path"]
-              }
-            },
-            "location": ""
-          },
-          "message": "",
-          "client": {
-            "fontName": "Mali",
-            "color": "#ff0019",
-            "messages": [
-              "messages": [
-               "Anh Yêu Em Nhiều Lắm ❤️ [ảnh:https://sf-static.upanhlaylink.com/img/image_20250917568823e276880b34ae6bcfe09a861d28.jpg]",
-              "Cảm ơn em vì đã đến 🌸 [ảnh: https://sf-static.upanhlaylink.com/img/image_20250917568823e276880b34ae6bcfe09a861d28.jpg]",
-              "Anh Yêu Em 💖 [ảnh: https://sf-static.upanhlaylink.com/img/image_20250917568823e276880b34ae6bcfe09a861d28.jpg]"
-],
-
-            ],
-            "music": "/static/audio/music.mp3"
-          },
-          "clientId": "/"
-        },
-        "url": "/",
-        "version": "",
-        "clearHistory": false,
-        "encryptHistory": false
-      }'
-    >
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="admin.jpg" alt="sang_dev Logo" class="sidebar-logo">
+      <a href="#" class="home-btn">Trang Chủ</a>
     </div>
-    <script type="module" src="/static/js/app.js"></script>
-    <script type="module" src="/static/js/home.js"></script>
-  </body>
+
+    <div class="sidebar-section">
+      <p class="section-title">MENU</p>
+      <div class="menu-item has-submenu">
+        <span><i class="fas fa-folder"></i> Thể Loại</span>
+        <span class="arrow">▾</span>
+      </div>
+      <!-- NOTE: đổi id để không trùng với container chính -->
+      <div class="submenu" id="sidebarCategoryFilter" style="display:flex; flex-direction:column;">
+        <button class="category-btn active" data-category="all">
+          <i class="fas fa-tools"></i> Tất cả
+        </button>
+        <button class="category-btn" data-category="free">
+          <i class="fas fa-gift"></i> Miễn phí
+        </button>
+        <button class="category-btn" data-category="premium">
+          <i class="fas fa-star"></i> Trả phí
+        </button>
+        <button class="category-btn" data-category="love">
+          <i class="fas fa-heart"></i> Tình yêu
+        </button>
+        <button class="category-btn" data-category="threejs">
+          <i class="fas fa-cube"></i> ThreeJS
+        </button>
+        <button class="category-btn" data-category="website">
+          <i class="fas fa-globe"></i> Website
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <p class="section-title">KHÁC</p>
+      <div class="menu-item has-submenu">
+        <span><i class="fas fa-phone-alt"></i> Liên Hệ</span>
+        <span class="arrow">▾</span>
+      </div>
+      <div class="submenu" style="display:flex; flex-direction:column;">
+        <a href="https://www.facebook.com/profile.php?id=61574167490098"><i class="fab fa-facebook"></i> Facebook</a>
+        <a href="https://chat.zalo.me/"><i class="fas fa-comment-dots"></i> Zalo</a>
+        <a href="https://www.tiktok.com/@sangnguyendev"><i class="fab fa-tiktok"></i> Tiktok</a>
+      </div>
+    </div>
+
+    <div style="padding: 15px; text-align: center; margin-top: 20px; color: #888; font-size: 12px;">
+      <!-- footer nhỏ bên sidebar nếu cần -->
+    </div>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-wrapper">
+    <header>
+      <button class="admin-report-btn" id="adminReportBtn">
+        <i class="fas fa-exclamation-circle"></i> Báo cáo Admin
+      </button>
+      <div class="logo">ㅤㅤㅤㅤㅤ</div>
+      <div class="tagline">
+        <p>Chào mừng bạn đến với dịch vụ của tôi – Một lập trình viên yêu thích xây dựng website sáng tạo</p>
+        <p>Mình chuyên phát triển website, ứng dụng với giao diện đẹp mắt và tối ưu hiệu suất</p>
+        <p>Chọn sản phẩm rồi bấm tải về, sau đó liên hệ admin và nhớ nói tên hoặc số hiệu sản phẩm</p>
+        <p>Bạn có thể xem thêm về mình <a href="https://www.facebook.com/profile.php?id=61574167490098" target="_blank">tại đây</a></p>
+        <p>tạo website  <a href="https://bot-five-pi.vercel.app/" target="_blank">tại đây</a></p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="category-filter" id="categoryFilter">
+        <button class="category-btn active" data-category="all">Tất cả</button>
+        <button class="category-btn" data-category="free">Miễn phí</button>
+        <button class="category-btn" data-category="premium">Trả phí</button>
+        <button class="category-btn" data-category="love">Tình yêu</button>
+        <button class="category-btn" data-category="3js">ThreeJS</button>
+        <button class="category-btn" data-category="wed">Website</button>
+      </div>
+
+      <div class="products-grid" id="productsGrid">
+        <!-- Sản phẩm sẽ được thêm bằng JavaScript -->
+      </div>
+
+      <!-- Phân trang -->
+      <div class="pagination" id="pagination">
+        <!-- Nút phân trang sẽ được thêm bằng JavaScript -->
+      </div>
+    </div>
+
+    <footer>
+      <p><a href="https://sangdevshop.vercel.app" style="color: var(--warning);">© 2023 sang_dev - Shop mã nguồn</a></p>
+    </footer>
+  </div>
+
+  <!-- Modal chi tiết sản phẩm -->
+  <div class="modal" id="productModal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Chi tiết sản phẩm</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="modalProductContent">
+        <!-- Nội dung sản phẩm sẽ được thêm bằng JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal báo cáo admin -->
+  <div class="modal" id="adminReportModal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Liên hệ Admin</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="contact-info" style="text-align: center; padding: 20px;">
+          <!-- Avatar Admin -->
+          <img id="adminAvatar" src="admin.jpg" alt="Ảnh Admin"
+               style="width:140px; height:140px; border-radius:50%; object-fit: cover; box-shadow:0 4px 10px rgba(0,0,0,0.2); margin-bottom:15px; cursor:pointer;">
+
+          <!-- Thông tin -->
+          <h3 style="margin: 10px 0; color: var(--primary);">sang_dev</h3>
+          <p>Nếu có lỗi hãy báo admin để khắc phục nhanh nhất</p>
+          <p>Luôn hỗ trợ tận tình, nhiệt tình</p>
+        </div>
+
+        <!-- Liên hệ mạng xã hội -->
+        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+          <a href="https://www.facebook.com/profile.php?id=61574167490098" target="_blank"
+             style="background:#1877f2; color:#fff; padding:10px 16px; border-radius:8px; text-decoration:none; display: flex; align-items: center; gap: 5px;">
+            <i class="fab fa-facebook"></i> Facebook
+          </a>
+          <a href="#" target="_blank"
+             style="background:#06c755; color:#fff; padding:10px 16px; border-radius:8px; text-decoration:none; display: flex; align-items: center; gap: 5px;">
+            <i class="fas fa-comment-dots"></i> Zalo
+          </a>
+          <a href="mailto:nguyenhongsang0207@gmail.com"
+             style="background:#ff5a5f; color:#fff; padding:10px 16px; border-radius:8px; text-decoration:none; display: flex; align-items: center; gap: 5px;">
+            <i class="fas fa-envelope"></i> Gmail
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="sanpham.js"></script> <!-- giữ file bạn đang dùng -->
+  <script>
+    // 👉 Biến toàn cục
+    let currentProduct = null;
+    let currentPage = 1;
+    let currentCategory = 'all';
+    const productsPerPage = 6;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // --- Hiển thị sản phẩm & phân trang ---
+      displayProductsForPage(currentPage);
+      setupPagination();
+
+      // --- Đóng modal ---
+      document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+        });
+      });
+
+      // --- Báo cáo admin ---
+      const adminBtn = document.getElementById('adminReportBtn');
+      if (adminBtn) {
+        adminBtn.addEventListener('click', () => {
+          document.getElementById('adminReportModal').style.display = 'flex';
+        });
+      }
+
+      // --- Lọc theo danh mục ---
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentCategory = this.getAttribute('data-category');
+          currentPage = 1;
+          displayProductsForPage(currentPage);
+          setupPagination();
+        });
+      });
+
+      // --- Đóng modal khi click ngoài ---
+      window.addEventListener('click', e => {
+        if (e.target.classList.contains('modal')) {
+          e.target.style.display = 'none';
+        }
+      });
+
+      // --- Sidebar toggle (chỉ trên mobile) ---
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('active');
+        });
+      }
+
+      // --- Submenu toggle ---
+      document.querySelectorAll(".has-submenu").forEach(item => {
+        item.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const submenu = item.nextElementSibling;
+          if (submenu && submenu.classList.contains('submenu')) {
+            submenu.style.display = submenu.style.display === 'flex' ? 'none' : 'flex';
+            item.classList.toggle('active');
+          }
+        });
+      });
+
+      // Mở submenu mặc định cho "Thể Loại"
+      const firstHasSub = document.querySelector('.has-submenu');
+      if (firstHasSub) {
+        const categorySubmenu = firstHasSub.nextElementSibling;
+        if (categorySubmenu && categorySubmenu.classList.contains('submenu')) {
+          categorySubmenu.style.display = 'flex';
+          firstHasSub.classList.add('active');
+        }
+      }
+    });
+
+    // --- Các hàm filter / hiển thị / pagination / modal ---
+    //  (mình giữ nguyên code gốc của bạn, chèn dưới đây)
+    function filterProducts() {
+      let filtered = currentCategory === 'all'
+        ? products
+        : products.filter(p => p.category.includes(currentCategory));
+
+      filtered.sort((a, b) => {
+        if (a.pinned && !b.pinned) return -1;
+        if (!a.pinned && b.pinned) return 1;
+        return b.id - a.id;
+      });
+
+      return filtered;
+    }
+
+    function displayProductsForPage(page) {
+      const productsGrid = document.getElementById('productsGrid');
+      if (!productsGrid) return;
+      productsGrid.innerHTML = '';
+
+      const filtered = filterProducts() || [];
+      const start = (page - 1) * productsPerPage;
+      const end = Math.min(start + productsPerPage, filtered.length);
+
+      for (let i = start; i < end; i++) {
+        const p = filtered[i];
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('data-id', p.id);
+
+        card.innerHTML = `
+          <div class="product-image">
+            <img src="${p.imageUrl}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/400x300?text=Ảnh+lỗi'">
+            ${p.price === "Miễn phí" ? '<div class="product-badge">MIỄN PHÍ</div>' : ''}
+            ${p.pinned ? '<div class="product-badge" style="background: var(--warning);">GHIM</div>' : ''}
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">${p.title}</h3>
+            <p class="product-description">${p.description}</p>
+            <div class="product-price">${p.price}</div>
+            <div class="product-meta">
+              <div class="product-rating">${generateStarRating(p.rating)}</div>
+              <div class="product-downloads"><i class="fas fa-download"></i> ${p.downloads.toLocaleString()}</div>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          currentProduct = p;
+          showProductModal(p);
+        });
+
+        productsGrid.appendChild(card);
+      }
+    }
+
+    function generateStarRating(rating) {
+      let stars = '';
+      const full = Math.floor(rating || 0);
+      const half = (rating || 0) % 1 >= 0.5;
+
+      for (let i = 0; i < full; i++) stars += '<i class="fas fa-star"></i>';
+      if (half) stars += '<i class="fas fa-star-half-alt"></i>';
+      for (let i = full + (half ? 1 : 0); i < 5; i++) stars += '<i class="far fa-star"></i>';
+
+      return stars + ` ${rating || 0}`;
+    }
+
+    function setupPagination() {
+      const pagination = document.getElementById('pagination');
+      if (!pagination) return;
+      pagination.innerHTML = '';
+
+      const filtered = filterProducts() || [];
+      const totalPages = Math.ceil(filtered.length / productsPerPage);
+      if (totalPages <= 1) return;
+
+      if (currentPage > 1) {
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'pagination-btn';
+        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevBtn.onclick = () => {
+          currentPage--;
+          displayProductsForPage(currentPage);
+          setupPagination();
+          window.scrollTo(0,0);
+        };
+        pagination.appendChild(prevBtn);
+      }
+
+      const maxVisible = 5;
+      let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+      let end = Math.min(totalPages, start + maxVisible - 1);
+      if (end - start + 1 < maxVisible) start = Math.max(1, end - maxVisible + 1);
+
+      for (let i = start; i <= end; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'pagination-btn';
+        if (i === currentPage) pageBtn.classList.add('active');
+        pageBtn.textContent = i;
+        pageBtn.onclick = () => {
+          currentPage = i;
+          displayProductsForPage(currentPage);
+          setupPagination();
+          window.scrollTo(0,0);
+        };
+        pagination.appendChild(pageBtn);
+      }
+
+      if (currentPage < totalPages) {
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'pagination-btn';
+        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextBtn.onclick = () => {
+          currentPage++;
+          displayProductsForPage(currentPage);
+          setupPagination();
+          window.scrollTo(0,0);
+        };
+        pagination.appendChild(nextBtn);
+      }
+    }
+
+    function showProductModal(product) {
+      const modalContent = document.getElementById('modalProductContent');
+      if (!modalContent) return;
+      modalContent.innerHTML = `
+        <div class="modal-product-image">
+          <img src="${product.imageUrl}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/800x400?text=Ảnh+lỗi'">
+        </div>
+        <div class="modal-product-details">
+          <div class="modal-product-info">
+            <h3 class="modal-product-title">${product.title}</h3>
+            <div class="modal-product-price">${product.price}</div>
+            <p class="modal-product-description">${product.detailedDescription}</p>
+          </div>
+          <div class="modal-product-features">
+            <h4>Tính năng nổi bật</h4>
+            <ul>${(product.features || []).map(f => `<li>${f}</li>`).join('')}</ul>
+          </div>
+          <div class="modal-actions">
+            <a href="${product.demoUrl}" target="_blank" class="btn btn-demo"><i class="fas fa-external-link-alt"></i> Xem Demo</a>
+            <button class="btn btn-download" onclick="window.location.href='${product.fileUrl}'"><i class="fas fa-download"></i> Tải Về</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('productModal').style.display = 'flex';
+    }
+  </script>
+
+  <!-- Avatar 10-click behaviour (đặt ở cuối để chắc chắn DOM đã có) -->
+  <script>
+    const avatar = document.getElementById('adminAvatar');
+    let clickCount = 0;
+    if (avatar) {
+      avatar.addEventListener('click', () => {
+        clickCount++;
+        if (clickCount === 10) {
+          window.location.href = "pass.html";
+        }
+      });
+    }
+  </script>
+
+  <!-- Ghi chú mã (để lại comment) -->
+  <!-- ko hack dc đâu đừng hòng mún code thì ib mấy thak lòn dell có của đâu -->
+
+</body>
 </html>
