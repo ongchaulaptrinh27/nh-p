@@ -85,13 +85,103 @@
     </header>
 
     <div class="container">
+      <!-- Admin Panel -->
+      <div class="admin-panel" id="adminPanel" style="display: none;">
+        <h2><i class="fas fa-cogs"></i> Quản lý sản phẩm</h2>
+        
+        <form id="productForm">
+          <div class="form-group">
+            <label for="productId">ID sản phẩm</label>
+            <input type="text" id="productId" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productTitle">Tên sản phẩm</label>
+            <input type="text" id="productTitle" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productDescription">Mô tả ngắn</label>
+            <textarea id="productDescription" class="form-control" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="productDetailedDescription">Mô tả chi tiết</label>
+            <textarea id="productDetailedDescription" class="form-control" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="productPrice">Giá</label>
+            <input type="text" id="productPrice" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productCategory">Danh mục</label>
+            <select id="productCategory" class="form-control" required>
+              <option value="free">Miễn phí</option>
+              <option value="premium">Trả phí</option>
+              <option value="love">Tình yêu</option>
+              <option value="threejs">ThreeJS</option>
+              <option value="website">Website</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="productImageUrl">URL hình ảnh</label>
+            <input type="text" id="productImageUrl" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productDemoUrl">URL demo</label>
+            <input type="text" id="productDemoUrl" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productFileUrl">URL file tải về</label>
+            <input type="text" id="productFileUrl" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productRating">Đánh giá (0-5)</label>
+            <input type="number" id="productRating" class="form-control" min="0" max="5" step="0.1" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productDownloads">Lượt tải về</label>
+            <input type="number" id="productDownloads" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="productFeatures">Tính năng (mỗi tính năng trên một dòng)</label>
+            <textarea id="productFeatures" class="form-control"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="productPinned"> Ghim sản phẩm
+            </label>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Thêm sản phẩm
+          </button>
+        </form>
+        
+        <div class="products-list" id="productsList">
+          <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
+        </div>
+      </div>
+
       <div class="category-filter" id="categoryFilter">
         <button class="category-btn active" data-category="all">Tất cả</button>
         <button class="category-btn" data-category="free">Miễn phí</button>
         <button class="category-btn" data-category="premium">Trả phí</button>
         <button class="category-btn" data-category="love">Tình yêu</button>
-        <button class="category-btn" data-category="3js">ThreeJS</button>
-        <button class="category-btn" data-category="wed">Website</button>
+        <button class="category-btn" data-category="threejs">ThreeJS</button>
+        <button class="category-btn" data-category="website">Website</button>
+        <button class="category-btn" id="toggleAdminPanel">
+          <i class="fas fa-cogs"></i> Quản lý
+        </button>
       </div>
 
       <div class="products-grid" id="productsGrid">
@@ -162,18 +252,72 @@
   </div>
 
   <!-- Scripts -->
-  <script src="sanpham.js"></script> <!-- giữ file bạn đang dùng -->
   <script>
     // 👉 Biến toàn cục
     let currentProduct = null;
     let currentPage = 1;
     let currentCategory = 'all';
     const productsPerPage = 6;
+    
+    // Lấy dữ liệu sản phẩm từ localStorage hoặc sử dụng mẫu
+    let products = JSON.parse(localStorage.getItem('sangdev_products')) || [
+      {
+        id: 1,
+        title: "Website bán hàng thời trang",
+        description: "Website bán hàng thời trang với giao diện hiện đại, responsive",
+        detailedDescription: "Website bán hàng thời trang được thiết kế với giao diện hiện đại, tối ưu trải nghiệm người dùng. Hỗ trợ đầy đủ các tính năng cần thiết cho một cửa hàng online.",
+        price: "Miễn phí",
+        category: ["free", "website"],
+        imageUrl: "https://via.placeholder.com/400x300?text=Thời+Trang",
+        demoUrl: "#",
+        fileUrl: "#",
+        rating: 4.5,
+        downloads: 1200,
+        features: ["Giao diện responsive", "Tối ưu SEO", "Tích hợp thanh toán", "Quản lý đơn hàng"],
+        pinned: true
+      },
+      {
+        id: 2,
+        title: "Ứng dụng tình yêu Lover",
+        description: "Ứng dụng ghi chú, nhật ký tình yêu dành cho các cặp đôi",
+        detailedDescription: "Ứng dụng Lover giúp các cặp đôi lưu giữ những kỷ niệm đẹp, ghi chú những điều đặc biệt về nhau và tạo ra những kỷ niệm sống động.",
+        price: "199.000 VND",
+        category: ["premium", "love"],
+        imageUrl: "https://via.placeholder.com/400x300?text=Tình+Yêu",
+        demoUrl: "#",
+        fileUrl: "#",
+        rating: 4.8,
+        downloads: 850,
+        features: ["Nhật ký tình yêu", "Lời nhắc kỷ niệm", "Tính năng bí mật", "Chia sẻ ảnh"],
+        pinned: false
+      },
+      {
+        id: 3,
+        title: "ThreeJS Portfolio",
+        description: "Portfolio 3D sử dụng ThreeJS với hiệu ứng đẹp mắt",
+        detailedDescription: "Portfolio cá nhân được xây dựng bằng ThreeJS, mang đến trải nghiệm 3D độc đáo và ấn tượng. Tối ưu hiệu suất và tương thích với nhiều thiết bị.",
+        price: "Miễn phí",
+        category: ["free", "threejs"],
+        imageUrl: "https://via.placeholder.com/400x300?text=ThreeJS",
+        demoUrl: "#",
+        fileUrl: "#",
+        rating: 4.3,
+        downloads: 2100,
+        features: ["Hiệu ứng 3D", "Tương thích mobile", "Tải nhanh", "Dễ tùy chỉnh"],
+        pinned: true
+      }
+    ];
 
     document.addEventListener("DOMContentLoaded", () => {
+      // Lưu dữ liệu mẫu nếu chưa có
+      if (!localStorage.getItem('sangdev_products')) {
+        localStorage.setItem('sangdev_products', JSON.stringify(products));
+      }
+      
       // --- Hiển thị sản phẩm & phân trang ---
       displayProductsForPage(currentPage);
       setupPagination();
+      displayProductsList();
 
       // --- Đóng modal ---
       document.querySelectorAll('.close-modal').forEach(btn => {
@@ -191,7 +335,7 @@
       }
 
       // --- Lọc theo danh mục ---
-      document.querySelectorAll('.category-btn').forEach(btn => {
+      document.querySelectorAll('.category-btn:not(#toggleAdminPanel)').forEach(btn => {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
           this.classList.add('active');
@@ -239,10 +383,33 @@
           firstHasSub.classList.add('active');
         }
       }
+      
+      // --- Toggle Admin Panel ---
+      const toggleAdminPanelBtn = document.getElementById('toggleAdminPanel');
+      const adminPanel = document.getElementById('adminPanel');
+      if (toggleAdminPanelBtn && adminPanel) {
+        toggleAdminPanelBtn.addEventListener('click', () => {
+          if (adminPanel.style.display === 'none') {
+            adminPanel.style.display = 'block';
+            toggleAdminPanelBtn.classList.add('active');
+          } else {
+            adminPanel.style.display = 'none';
+            toggleAdminPanelBtn.classList.remove('active');
+          }
+        });
+      }
+      
+      // --- Xử lý form thêm sản phẩm ---
+      const productForm = document.getElementById('productForm');
+      if (productForm) {
+        productForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          addProduct();
+        });
+      }
     });
 
     // --- Các hàm filter / hiển thị / pagination / modal ---
-    //  (mình giữ nguyên code gốc của bạn, chèn dưới đây)
     function filterProducts() {
       let filtered = currentCategory === 'all'
         ? products
@@ -389,6 +556,101 @@
         </div>
       `;
       document.getElementById('productModal').style.display = 'flex';
+    }
+    
+    // --- Quản lý sản phẩm ---
+    function addProduct() {
+      const id = document.getElementById('productId').value;
+      const title = document.getElementById('productTitle').value;
+      const description = document.getElementById('productDescription').value;
+      const detailedDescription = document.getElementById('productDetailedDescription').value;
+      const price = document.getElementById('productPrice').value;
+      const category = [document.getElementById('productCategory').value];
+      const imageUrl = document.getElementById('productImageUrl').value;
+      const demoUrl = document.getElementById('productDemoUrl').value;
+      const fileUrl = document.getElementById('productFileUrl').value;
+      const rating = parseFloat(document.getElementById('productRating').value);
+      const downloads = parseInt(document.getElementById('productDownloads').value);
+      const features = document.getElementById('productFeatures').value.split('\n').filter(f => f.trim() !== '');
+      const pinned = document.getElementById('productPinned').checked;
+      
+      // Kiểm tra ID đã tồn tại chưa
+      if (products.some(p => p.id == id)) {
+        alert('ID sản phẩm đã tồn tại! Vui lòng chọn ID khác.');
+        return;
+      }
+      
+      const newProduct = {
+        id: parseInt(id),
+        title,
+        description,
+        detailedDescription,
+        price,
+        category,
+        imageUrl,
+        demoUrl,
+        fileUrl,
+        rating,
+        downloads,
+        features,
+        pinned
+      };
+      
+      products.push(newProduct);
+      localStorage.setItem('sangdev_products', JSON.stringify(products));
+      
+      // Reset form
+      document.getElementById('productForm').reset();
+      
+      // Cập nhật hiển thị
+      displayProductsForPage(currentPage);
+      setupPagination();
+      displayProductsList();
+      
+      alert('Thêm sản phẩm thành công!');
+    }
+    
+    function deleteProduct(id) {
+      if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+        products = products.filter(p => p.id != id);
+        localStorage.setItem('sangdev_products', JSON.stringify(products));
+        
+        // Cập nhật hiển thị
+        displayProductsForPage(currentPage);
+        setupPagination();
+        displayProductsList();
+        
+        alert('Xóa sản phẩm thành công!');
+      }
+    }
+    
+    function displayProductsList() {
+      const productsList = document.getElementById('productsList');
+      if (!productsList) return;
+      
+      productsList.innerHTML = '<h3>Danh sách sản phẩm</h3>';
+      
+      if (products.length === 0) {
+        productsList.innerHTML += '<p>Chưa có sản phẩm nào.</p>';
+        return;
+      }
+      
+      products.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.className = 'product-item';
+        productItem.innerHTML = `
+          <div class="product-item-info">
+            <h4>${product.title} (ID: ${product.id})</h4>
+            <p>${product.description} - ${product.price}</p>
+          </div>
+          <div class="product-item-actions">
+            <button class="btn btn-danger" onclick="deleteProduct(${product.id})">
+              <i class="fas fa-trash"></i> Xóa
+            </button>
+          </div>
+        `;
+        productsList.appendChild(productItem);
+      });
     }
   </script>
 
